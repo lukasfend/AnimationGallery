@@ -69,7 +69,7 @@ class FractalTree {
     this.branches = newBranches;
     this.firstBranchLength *= this.branchLengthMultiplicator;
     this.branchSplitAngle *= this.branchSplitMultiplicator;
-    setTimeout(()=>{this.frame();},100);
+    setTimeout(()=>{this.frame();},1);
   }
 }
 var StyleSettings = {
