@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Fractal Tree Animation</title>
+  <meta charset="utf-8">
+  <style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .controls {
+    position: fixed;
+    z-index: 5;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    Split Angle Multiplicator:
+    <br><input id="split" type="range" min="0.1" max="2.0" step="0.01" value="1.0" onchange="splitMultChange()" oninput="splitMultChange()">
+    <br>
+    Size:<br>
+    <input id="size" type="range" value="150" min="10" step="5" max="500" oninput="splitMultChange()" onchange="splitMultChange()">
+
+    <br>
+    Branch length multiplicator:<br>
+    <input id="lenmul" type="range" value="0.75" min="0.2" step="0.1" max="5" oninput="splitMultChange()" onchange="splitMultChange()">
+
+  </div>
+
+
+  <canvas id="canvas">Sorry, but your browser doesn't support HTML5.</canvas>
+
+  <!-- Modules -->
+  <script src="../_modules/CanvasSetup.js"></script> <!-- For setting up the canvas -->
+  <script src="../_modules/Angle.js"></script> <!-- For handling angles -->
+  <!-- Main -->
+  <script src="main.js"></script>
+</body>
+
+</html>
