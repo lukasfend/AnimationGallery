@@ -101,13 +101,13 @@ class Branch {
   }
 }
 let canvas=document.getElementById("canvas")
-var Animation = new FractalTree(canvas);
-Animation.frame();
+var app = new FractalTree(canvas);
+app.frame();
 
 function splitMultChange() {
-  Animation.setup(canvas);
-  Animation.branchSplitMultiplicator = document.getElementById("split").value;
-  Animation.firstBranchLength = document.getElementById("size").value;
-  Animation.branchLengthMultiplicator = document.getElementById("lenmul").value;
-  Animation.frame();
+  app.setup(canvas);
+  app.branchSplitMultiplicator = document.getElementById("split").value;
+  app.firstBranchLength = document.getElementById("size").value;
+  app.branchLengthMultiplicator = document.getElementById("lenmul").value;
+  app.frame();
 }
