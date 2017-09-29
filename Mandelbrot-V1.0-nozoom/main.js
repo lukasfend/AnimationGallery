@@ -19,19 +19,21 @@ class MandelBrot {
   }
   setup() {
     let decreaseFactor=1.3;
-    let initialRadius = 125;
+    this.initialRadius = 125;
     this.mandelBrotCircles = [];
     this.generations = 10;
     // Generations
     for(var i=0;i<this.generations;i++) {
+
       if(i==0) {
         this.mandelBrotCircles[i] = new Circle(
           parseInt(window.innerWidth/2),
           parseInt(window.innerHeight/2),
-          initialRadius,
+          this.initialRadius,
           0,
           i
         );
+
       } else {
         let beforeRadius = this.mandelBrotCircles[i-1].radius;
         let before = this.mandelBrotCircles[i-1].getAdditionalPointerPosition(beforeRadius/decreaseFactor);
@@ -42,16 +44,31 @@ class MandelBrot {
           -20*i,
           i
         );
+
       }
+      this.mandelBrotCircles[i].increase = (i+1)/1;
     }
   }
   frame() {
     this.wireFrameContext.clearRect(0,0,window.innerWidth,window.innerHeight);
+    let count = 1;
     for(var circle of this.mandelBrotCircles) {
       if(window.wireFrames) {
         circle.drawWireframes(this.wireFrameContext);
+        circle.next();
       }
+      if(count < this.mandelBrotCircles.length-1) {
+        let nextCircle = this.mandelBrotCircles[count+1];
+        let beforeCircleRadius = (this.mandelBrotCircles[count-1].radius==undefined)?this.initialRadius:this.mandelBrotCircles[count-1].radius;
+        let nextPos = circle.getAdditionalPointerPosition(beforeCircleRadius);
+        nextCircle.x = nextPos.x;
+        nextCircle.y = nextPos.y;
+      }
+
+      count++;
     }
+
+    setTimeout(()=>{this.frame();},25);
   }
 }
 var StyleSettings = {
@@ -63,7 +80,12 @@ class Circle {
     this.y=y;
     this.currentAngle = angle;
     this.radius = radius;
+    this.increase = 1;
     this.generation = generation;
+  }
+
+  next() {
+    this.currentAngle+=this.increase;
   }
 
   getPointerPosition() {
@@ -93,6 +115,11 @@ class Circle {
     let opacity = (1 / (this.generation+1))/0.75;
     ctx.strokeStyle = StyleSettings.wireFrameColor.replace("{0}", opacity);
     ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.moveTo(this.x,this.y);
+    ctx.lineTo(this.getPointerPosition().x,this.getPointerPosition().y);
     ctx.stroke();
     ctx.closePath();
   }
