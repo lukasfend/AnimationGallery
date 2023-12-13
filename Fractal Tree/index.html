@@ -37,8 +37,42 @@
   <canvas id="canvas">Sorry, but your browser doesn't support HTML5.</canvas>
 
   <!-- Modules -->
-  <script src="https://lukasfend.github.io/AnimationGallery/_modules/CanvasSetup.js"></script> <!-- For setting up the canvas -->
-  <script src="https://lukasfend.github.io/AnimationGallery/_modules/Angle.js"></script> <!-- For handling angles -->
+  <script type="text/javascript">
+class Angle {
+  constructor(angle) {
+    this.setAngle(angle);
+  }
+  getEndCoordinates(length, startCoordinates) {
+    // Offset on Y axis
+    let offsetY = length * Math.cos(this.angle); //AK = H * cos(x)
+    let offsetX = length * Math.sin(this.angle); //GK = H * sin(x)
+    return {
+      x: startCoordinates.x+offsetX,
+      y: startCoordinates.y+offsetY
+    };
+  }
+  setAngle(angle) {
+    let factor = angle / 180;
+    let effectiveAngle = factor * Math.PI;
+    this.angle = effectiveAngle;
+    this.rawAngle = angle;
+  }
+  setAngleRadiant(angle) {
+    this.angle = angle;
+  }
+  get() {
+    return this.rawAngle;
+  }
+}
+    function setupCanvas(canvas) {
+  this.canvas.width=window.innerWidth;
+  this.canvas.height=window.innerHeight;
+  this.canvas.style.backgroundColor="rgb(45, 45, 45)";
+  this.canvas.style.position="fixed";
+  this.canvas.style.top="0";
+  this.canvas.style.left="0";
+}
+  </script>
   <!-- Main -->
   <script src="main.js"></script>
 </body>
